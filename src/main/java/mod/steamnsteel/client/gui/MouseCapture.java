@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Created by codew on 12/01/2016.
  */
 public class MouseCapture {
-    private static HashSet<Control> capturingControls = new HashSet<>();
+    private static HashSet<Control> capturingControls = new HashSet<Control>();
     public static void register(Control control) {
         capturingControls.add(control);
     }

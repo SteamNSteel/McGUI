@@ -1,11 +1,7 @@
 package mod.steamnsteel.client.gui.controls;
 
-import mod.steamnsteel.client.gui.Control;
-import mod.steamnsteel.client.gui.GuiRenderer;
-import mod.steamnsteel.client.gui.GuiTexture;
+import mod.steamnsteel.client.gui.*;
 import mod.steamnsteel.client.gui.events.ICurrentValueChangedEventListener;
-import mod.steamnsteel.utility.SteamNSteelException;
-import mod.steamnsteel.utility.log.Logger;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.ReadableRectangle;
 import java.util.ArrayList;
@@ -51,7 +47,7 @@ public class ScrollbarControl extends Control
     public void setMinimumValue(int minimumValue)
     {
         if (minimumValue < maximumValue) {
-            throw new SteamNSteelException("Attempt to set a scrollbar's maximum to less than it's minimum");
+            throw new McGUIException("Attempt to set a scrollbar's maximum to less than it's minimum");
         }
 
         this.minimumValue = minimumValue;
@@ -124,7 +120,7 @@ public class ScrollbarControl extends Control
     public void setMaximumValue(int maximumValue)
     {
         if (maximumValue < minimumValue) {
-            throw new SteamNSteelException("Attempt to set a scrollbar's maximum to less than it's minimum");
+            throw new McGUIException("Attempt to set a scrollbar's maximum to less than it's minimum");
         }
 
         this.maximumValue = maximumValue;
@@ -179,12 +175,12 @@ public class ScrollbarControl extends Control
             try {
                 currentValueChangedEventListener.invoke(this, previousValue, newValue);
             } catch (Exception e) {
-                Logger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
+                GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
             }
         }
     }
 
-    List<ICurrentValueChangedEventListener> currentValueChangedEventListeners = new ArrayList<>();
+    List<ICurrentValueChangedEventListener> currentValueChangedEventListeners = new ArrayList<ICurrentValueChangedEventListener>();
 
     public void addOnCurrentValueChangedEventListener(ICurrentValueChangedEventListener listener) {
         currentValueChangedEventListeners.add(listener);

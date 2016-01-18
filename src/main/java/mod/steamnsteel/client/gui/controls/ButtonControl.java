@@ -1,10 +1,9 @@
 package mod.steamnsteel.client.gui.controls;
 
 import mod.steamnsteel.client.gui.Control;
+import mod.steamnsteel.client.gui.GuiLogger;
 import mod.steamnsteel.client.gui.GuiRenderer;
 import mod.steamnsteel.client.gui.events.IButtonPressedEventListener;
-import mod.steamnsteel.client.gui.events.ICurrentValueChangedEventListener;
-import mod.steamnsteel.utility.log.Logger;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
@@ -58,12 +57,12 @@ public class ButtonControl extends Control
             try {
                 currentValueChangedEventListener.onButtonPressed(this);
             } catch (Exception e) {
-                Logger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
+                GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
             }
         }
     }
 
-    List<IButtonPressedEventListener> buttonPressedEventListeners = new ArrayList<>();
+    List<IButtonPressedEventListener> buttonPressedEventListeners = new ArrayList<IButtonPressedEventListener>();
 
     @SuppressWarnings("unused")
     public void addOnButtonPressedEventListener(IButtonPressedEventListener listener) {

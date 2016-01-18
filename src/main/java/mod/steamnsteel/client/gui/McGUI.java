@@ -16,7 +16,6 @@
 
 package mod.steamnsteel.client.gui;
 
-import mod.steamnsteel.TheMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
@@ -29,28 +28,21 @@ import org.lwjgl.util.Rectangle;
 
 import java.io.IOException;
 
-abstract class EasyGui extends GuiContainer
+public abstract class McGUI extends GuiContainer
 {
     private static final int TEXT_COLOR = 4210752;
     private static final String LOCATION = "textures/gui/";
     private static final String FILE_EXTENSION = ".png";
     private static final String INVENTORY = "container.inventory";
+    private String modId = "";
     private Control rootControl = null;
 
-    EasyGui(Container container)
+    public McGUI(Container container)
     {
         super(container);
     }
 
-    static ResourceLocation getResourceLocation(String path)
-    {
-        return getResourceLocation(TheMod.MOD_ID.toLowerCase(), LOCATION + path + FILE_EXTENSION);
-    }
-
-    private static ResourceLocation getResourceLocation(String modID, String path)
-    {
-        return new ResourceLocation(modID, path);
-    }
+    protected abstract ResourceLocation getResourceLocation(String path);
 
     protected abstract String getInventoryName();
 

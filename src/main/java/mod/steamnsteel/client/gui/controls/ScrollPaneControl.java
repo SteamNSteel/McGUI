@@ -6,8 +6,6 @@ import mod.steamnsteel.client.gui.GuiRenderer;
 import mod.steamnsteel.client.gui.IGuiTemplate;
 import mod.steamnsteel.client.gui.IModelView;
 import mod.steamnsteel.client.gui.events.ICurrentValueChangedEventListener;
-import mod.steamnsteel.utility.SteamNSteelException;
-import mod.steamnsteel.utility.log.Logger;
 import org.lwjgl.util.ReadableRectangle;
 import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends Control &
 
     public ScrollPaneControl<TModel, TChildComponentTemplate> setVisibleItemCount(int visibleItems) {
         if (template == null) {
-            throw new SteamNSteelException("Can't set the visible item count, a template hasn't been defined yet");
+            throw new McGUIException("Can't set the visible item count, a template hasn't been defined yet");
         }
         visibleItemCount = visibleItems;
         final int actualItems = visibleItemCount + 1;

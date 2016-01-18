@@ -10,7 +10,7 @@ public class Control
     private final Rectangle componentBounds = new Rectangle();
     protected final GuiRenderer guiRenderer;
     private Control parent = null;
-    private final List<Control> children = new ArrayList<>(10);
+    private final List<Control> children = new ArrayList<Control>(10);
 
     public Control(GuiRenderer guiRenderer) {
         this(guiRenderer, new Rectangle());
