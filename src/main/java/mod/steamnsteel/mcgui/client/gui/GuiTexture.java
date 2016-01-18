@@ -1,4 +1,4 @@
-package mod.steamnsteel.client.gui;
+package mod.steamnsteel.mcgui.client.gui;
 
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.ReadableRectangle;

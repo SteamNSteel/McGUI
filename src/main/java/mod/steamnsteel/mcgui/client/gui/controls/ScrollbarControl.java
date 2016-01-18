@@ -1,7 +1,7 @@
-package mod.steamnsteel.client.gui.controls;
+package mod.steamnsteel.mcgui.client.gui.controls;
 
-import mod.steamnsteel.client.gui.*;
-import mod.steamnsteel.client.gui.events.ICurrentValueChangedEventListener;
+import mod.steamnsteel.mcgui.client.gui.*;
+import mod.steamnsteel.mcgui.client.gui.events.ICurrentValueChangedEventListener;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.ReadableRectangle;
 import java.util.ArrayList;

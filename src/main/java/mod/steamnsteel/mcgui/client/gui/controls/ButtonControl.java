@@ -1,9 +1,9 @@
-package mod.steamnsteel.client.gui.controls;
+package mod.steamnsteel.mcgui.client.gui.controls;
 
-import mod.steamnsteel.client.gui.Control;
-import mod.steamnsteel.client.gui.GuiLogger;
-import mod.steamnsteel.client.gui.GuiRenderer;
-import mod.steamnsteel.client.gui.events.IButtonPressedEventListener;
+import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.GuiLogger;
+import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
+import mod.steamnsteel.mcgui.client.gui.events.IButtonPressedEventListener;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;

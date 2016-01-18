@@ -1,6 +1,6 @@
-package mod.steamnsteel.client.gui.events;
+package mod.steamnsteel.mcgui.client.gui.events;
 
-import mod.steamnsteel.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.Control;
 
 public interface ICurrentValueChangedEventListener
 {

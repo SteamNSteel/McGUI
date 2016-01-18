@@ -1,6 +1,5 @@
-package mod.steamnsteel.client.gui;
+package mod.steamnsteel.mcgui.client.gui;
 
-import mod.steamnsteel.client.gui.Control;
 import java.util.HashSet;
 
 /**

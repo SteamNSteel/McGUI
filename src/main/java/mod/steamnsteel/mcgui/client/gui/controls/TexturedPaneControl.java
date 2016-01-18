@@ -1,8 +1,8 @@
-package mod.steamnsteel.client.gui.controls;
+package mod.steamnsteel.mcgui.client.gui.controls;
 
-import mod.steamnsteel.client.gui.Control;
-import mod.steamnsteel.client.gui.GuiRenderer;
-import mod.steamnsteel.client.gui.GuiTexture;
+import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
+import mod.steamnsteel.mcgui.client.gui.GuiTexture;
 import org.lwjgl.util.Rectangle;
 
 /**

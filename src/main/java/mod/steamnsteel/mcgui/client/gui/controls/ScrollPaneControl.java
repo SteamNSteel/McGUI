@@ -1,11 +1,11 @@
-package mod.steamnsteel.client.gui.controls;
+package mod.steamnsteel.mcgui.client.gui.controls;
 
 import com.google.common.collect.Lists;
-import mod.steamnsteel.client.gui.Control;
-import mod.steamnsteel.client.gui.GuiRenderer;
-import mod.steamnsteel.client.gui.IGuiTemplate;
-import mod.steamnsteel.client.gui.IModelView;
-import mod.steamnsteel.client.gui.events.ICurrentValueChangedEventListener;
+import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
+import mod.steamnsteel.mcgui.client.gui.IGuiTemplate;
+import mod.steamnsteel.mcgui.client.gui.IModelView;
+import mod.steamnsteel.mcgui.client.gui.events.ICurrentValueChangedEventListener;
 import org.lwjgl.util.ReadableRectangle;
 import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
