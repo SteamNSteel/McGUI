@@ -36,7 +36,7 @@ minecraft {
     mappings = "snapshot_20160118"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
-//hmmmmm kfc
+//hmmmmm kittens!
 jar {
     classifier = 'API'
 }
