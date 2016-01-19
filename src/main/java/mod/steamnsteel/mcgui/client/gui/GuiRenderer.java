@@ -116,6 +116,7 @@ public class GuiRenderer
     {
         final ReadablePoint controlLocation = getControlLocation(control);
         fontRenderer.drawStringWithShadow(text, controlLocation.getX() + x, controlLocation.getY() + y, colour);
+        notifyTextureChanged();
     }
 
     public int getStringWidth(String text)
