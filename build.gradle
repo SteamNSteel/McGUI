@@ -21,7 +21,7 @@ plugins {
 */
 
 version = "1.0"
-group= "mod.steamnsteel.mcgui"
+group= "mod.steamnsteel"
 archivesBaseName = "mcgui"
 
 minecraft {
@@ -78,7 +78,7 @@ task createPom << {
                 }
             }
         }
-    }.writeTo(libsDir.path + "/pom.xml")
+    }.writeTo(libsDir.path + "/" + project.archivesBaseName + "-" + project.version + ".pom")
 }
 
 build.dependsOn createPom
