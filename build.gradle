@@ -61,7 +61,7 @@ processResources
 }
 
 task deobfJar(type: Jar, dependsOn: 'jar') {
-    from "build/source/main"
+    from "build/classes/main"
     classifier "deobf"
 }
 artifacts {
