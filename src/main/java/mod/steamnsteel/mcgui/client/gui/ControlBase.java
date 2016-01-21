@@ -167,6 +167,38 @@ public class ControlBase
         return checkMouseBoundsAndPropagate(point, mouseCallback);
     }
 
+    public boolean mouseWheelUp(final ReadablePoint point, final int scrollAmount)
+    {
+        IMouseCallback mouseCallback = new IMouseCallback() {
+            @Override
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
+                return child.mouseWheelUp(localPoint, scrollAmount);
+            }
+
+            @Override
+            public boolean checkCurrent(ReadablePoint point) {
+                return mouseWheelUpInternal(point, scrollAmount);
+            }
+        };
+        return checkMouseBoundsAndPropagate(point, mouseCallback);
+    }
+
+    public boolean mouseWheelDown(final ReadablePoint point, final int scrollAmount)
+    {
+        IMouseCallback mouseCallback = new IMouseCallback() {
+            @Override
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
+                return child.mouseWheelDown(localPoint, scrollAmount);
+            }
+
+            @Override
+            public boolean checkCurrent(ReadablePoint point) {
+                return mouseWheelDownInternal(point, scrollAmount);
+            }
+        };
+        return checkMouseBoundsAndPropagate(point, mouseCallback);
+    }
+
     private boolean checkMouseBoundsAndPropagate(final ReadablePoint point, final IMouseCallback callback) {
         final Rectangle realControlBounds = new Rectangle();
 
@@ -236,6 +268,16 @@ public class ControlBase
         return onMouseDragEnded(point, mouseButton);
     }
 
+    private boolean mouseWheelUpInternal(ReadablePoint point, int scrollAmount)
+    {
+        return onMouseWheelUp(point, scrollAmount);
+    }
+
+    private boolean mouseWheelDownInternal(ReadablePoint point, int scrollAmount)
+    {
+        return onMouseWheelDown(point, scrollAmount);
+    }
+
     private void onResizeInternal() {
         onResized(componentBounds);
     }
@@ -270,9 +312,16 @@ public class ControlBase
     protected boolean onMouseDragEnded(ReadablePoint point, int mouseButton) {
         return false;
     }
+    @SuppressWarnings("UnusedParameters")
+    protected boolean onMouseWheelUp(ReadablePoint point, int scrollAmount) {
+        return false;
+    }
+    @SuppressWarnings("UnusedParameters")
+    protected boolean onMouseWheelDown(ReadablePoint point, int scrollAmount) {
+        return false;
+    }
 
     @SuppressWarnings("UnusedParameters")
-    protected void onResized(ReadableRectangle componentBounds) {
-    }
+    protected void onResized(ReadableRectangle componentBounds) { }
 
 }

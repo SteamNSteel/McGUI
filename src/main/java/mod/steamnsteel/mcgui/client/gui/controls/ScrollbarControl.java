@@ -106,9 +106,22 @@ public class ScrollbarControl extends ControlBase
 
         int discreteValues = maximumValue - minimumValue;
 
-
         setCurrentValue(minimumValue + (int)(percentage * discreteValues));
         
+        return true;
+    }
+
+    @Override
+    public boolean mouseWheelDown(ReadablePoint point, int scrollAmount)
+    {
+        setCurrentValue(getCurrentValue() + 5);
+        return true;
+    }
+
+    @Override
+    public boolean mouseWheelUp(ReadablePoint point, int scrollAmount)
+    {
+        setCurrentValue(getCurrentValue() + -5);
         return true;
     }
 

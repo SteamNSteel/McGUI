@@ -84,8 +84,6 @@ public abstract class McGUI extends GuiContainer
             return;
         }
 
-        System.out.println("DWheel: " + Mouse.getEventDWheel());
-
         int eventX = Mouse.getEventX() * this.width / this.mc.displayWidth;
         int eventY = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
         int eventButton = Mouse.getEventButton();
@@ -162,6 +160,15 @@ public abstract class McGUI extends GuiContainer
                 }
             }
             lastMouseLocation.setLocation(currentMouseLocation);
+        }
+
+        final int scrollAmount = Mouse.getDWheel();
+        if (scrollAmount != 0) {
+            if (scrollAmount > 0) {
+                rootControl.mouseWheelUp(currentMouseLocation, scrollAmount);
+            } else {
+                rootControl.mouseWheelDown(currentMouseLocation, scrollAmount);
+            }
         }
     }
 

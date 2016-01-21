@@ -6,6 +6,7 @@ import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
 import mod.steamnsteel.mcgui.client.gui.IGuiTemplate;
 import mod.steamnsteel.mcgui.client.gui.IModelView;
 import mod.steamnsteel.mcgui.client.gui.events.ICurrentValueChangedEventListener;
+import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.ReadableRectangle;
 import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
@@ -70,6 +71,30 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         final int maximumValue = Math.max(0, (this.items.size() - visibleItemCount) * template.getBounds().getHeight());
         scrollbar.setMaximumValue(maximumValue);
         return this;
+    }
+
+    @Override
+    public boolean mouseWheelUp(ReadablePoint point, int scrollAmount)
+    {
+        if (scrollbar != null) {
+            return scrollbar.mouseWheelUp(point, scrollAmount);
+        } else
+        {
+            //Handle logic for a scroll pane without a scrollbar
+            return false;
+        }
+    }
+
+    @Override
+    public boolean mouseWheelDown(ReadablePoint point, int scrollAmount)
+    {
+        if (scrollbar != null) {
+            return scrollbar.mouseWheelDown(point, scrollAmount);
+        } else
+        {
+            //Handle logic for a scroll pane without a scrollbar
+            return false;
+        }
     }
 
     @Override
