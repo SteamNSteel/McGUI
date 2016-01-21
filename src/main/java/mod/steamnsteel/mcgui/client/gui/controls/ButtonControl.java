@@ -39,7 +39,7 @@ public class ButtonControl extends ControlBase
         super.draw();
         if (currentTexture != null)
         {
-            guiRenderer.drawComponentTexture(this, currentTexture);
+            getGuiRenderer().drawComponentTexture(this, currentTexture);
         }
     }
 
@@ -85,13 +85,13 @@ public class ButtonControl extends ControlBase
         {
             try {
                 currentValueChangedEventListener.onButtonPressed(this);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
             }
         }
     }
 
-    List<IButtonPressedEventListener> buttonPressedEventListeners = new ArrayList<IButtonPressedEventListener>();
+    private List<IButtonPressedEventListener> buttonPressedEventListeners = new ArrayList<IButtonPressedEventListener>();
 
     @SuppressWarnings("unused")
     public void addOnButtonPressedEventListener(IButtonPressedEventListener listener) {
@@ -110,8 +110,8 @@ public class ButtonControl extends ControlBase
 
     public void setDefaultTexture(GuiTexture defaultTexture)
     {
-        if (this.currentTexture == this.defaultTexture) {
-            this.currentTexture = defaultTexture;
+        if (currentTexture == this.defaultTexture) {
+            currentTexture = defaultTexture;
         }
         this.defaultTexture = defaultTexture;
     }

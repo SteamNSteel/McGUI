@@ -34,10 +34,10 @@ public abstract class McGUI extends GuiContainer
     private static final String LOCATION = "textures/gui/";
     private static final String FILE_EXTENSION = ".png";
     private static final String INVENTORY = "container.inventory";
-    private String modId = "";
+    private final String modId = "";
     private ControlBase rootControl = null;
 
-    public McGUI(Container container)
+    protected McGUI(Container container)
     {
         super(container);
     }
@@ -51,7 +51,7 @@ public abstract class McGUI extends GuiContainer
     }
 
     protected final void addChild(ControlBase childControl) {
-        this.rootControl.addChild(childControl);
+        rootControl.addChild(childControl);
     }
 
     @Override
@@ -67,11 +67,11 @@ public abstract class McGUI extends GuiContainer
     /////////////////////////////////////////////////////////////////////////////
     // Control Event handling
     /////////////////////////////////////////////////////////////////////////////
-    Point lastMouseLocation = new Point();
-    Point currentMouseLocation = new Point();
-    boolean isDragging;
-    int dragButton;
-    private Rectangle bounds = new Rectangle();
+    private final Point lastMouseLocation = new Point();
+    private final Point currentMouseLocation = new Point();
+    private boolean isDragging;
+    private int dragButton;
+    private final Rectangle bounds = new Rectangle();
     private int eventButton;
     private int touchValue;
     private long lastMouseEvent;
@@ -84,8 +84,8 @@ public abstract class McGUI extends GuiContainer
             return;
         }
 
-        int eventX = Mouse.getEventX() * this.width / this.mc.displayWidth;
-        int eventY = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+        int eventX = Mouse.getEventX() * width / mc.displayWidth;
+        int eventY = height - Mouse.getEventY() * height / mc.displayHeight - 1;
         int eventButton = Mouse.getEventButton();
 
         bounds.setBounds(rootControl.getBounds());
@@ -98,18 +98,18 @@ public abstract class McGUI extends GuiContainer
         currentMouseLocation.setLocation(eventX, eventY);
         if (Mouse.getEventButtonState())
         {
-            if (this.mc.gameSettings.touchscreen && this.touchValue++ > 0)
+            if (mc.gameSettings.touchscreen && touchValue++ > 0)
             {
                 return;
             }
 
             this.eventButton = eventButton;
-            this.lastMouseEvent = Minecraft.getSystemTime();
+            lastMouseEvent = Minecraft.getSystemTime();
             rootControl.mouseClicked(currentMouseLocation, eventButton);
         }
         else if (eventButton != -1)
         {
-            if (this.mc.gameSettings.touchscreen && --this.touchValue > 0)
+            if (mc.gameSettings.touchscreen && --touchValue > 0)
             {
                 return;
             }
@@ -136,7 +136,7 @@ public abstract class McGUI extends GuiContainer
             //Logger.info("Mouse Moved %s", currentMouseLocation);
             rootControl.mouseMoved(currentMouseLocation);
 
-            if (this.eventButton != -1 && this.lastMouseEvent > 0L) {
+            if (this.eventButton != -1 && lastMouseEvent > 0L) {
                 if (!isDragging) {
                     //Logger.info("Mouse Drag started %s", currentMouseLocation);
                     rootControl.mouseDragStarted(currentMouseLocation, this.eventButton);

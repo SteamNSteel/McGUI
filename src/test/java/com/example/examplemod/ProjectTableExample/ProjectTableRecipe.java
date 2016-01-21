@@ -8,12 +8,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by codew on 6/01/2016.
- */
 public class ProjectTableRecipe
 {
-    private ImmutableList<ItemStack> output;
+    private final ImmutableList<ItemStack> output;
     private ImmutableList<ItemStack> input;
     private ImmutableList<ItemStack> consolidatedInput;
     private String displayName;
@@ -22,21 +19,21 @@ public class ProjectTableRecipe
     public ProjectTableRecipe(Collection<ItemStack> input, String displayName, Collection<ItemStack> output)
     {
         this.input = ImmutableList.copyOf(input);
-        this.setDisplayName(displayName);
+        setDisplayName(displayName);
         this.output = ImmutableList.copyOf(output);
     }
 
     public ProjectTableRecipe(Collection<ItemStack> input, ItemStack output)
     {
         this.input = ImmutableList.copyOf(input);
-        this.setDisplayName(output.getDisplayName());
+        setDisplayName(output.getDisplayName());
         this.output = ImmutableList.of(output);
     }
 
     public ProjectTableRecipe(ItemStack output, ItemStack... input)
     {
         this.input = ImmutableList.copyOf(input);
-        this.displayName = output.getDisplayName();
+        displayName = output.getDisplayName();
         this.output = ImmutableList.of(output);
     }
 

@@ -2,11 +2,8 @@ package mod.steamnsteel.mcgui.client.gui;
 
 import java.util.HashSet;
 
-/**
- * Created by codew on 12/01/2016.
- */
 public class MouseCapture {
-    private static HashSet<ControlBase> capturingControls = new HashSet<ControlBase>();
+    private static final HashSet<ControlBase> capturingControls = new HashSet<ControlBase>();
     public static void register(ControlBase control) {
         capturingControls.add(control);
     }

@@ -20,7 +20,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
     private List<TModel> items = Lists.newArrayList();
     private TChildComponentTemplate template = null;
     private ScrollbarControl scrollbar = null;
-    private ScrollbarChangedEventListener scrollbarListener = new ScrollbarChangedEventListener();
+    private final ScrollbarChangedEventListener scrollbarListener = new ScrollbarChangedEventListener();
     private int scrollbarOffset;
     private int visibleItemCount;
 
@@ -65,7 +65,6 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         return this;
     }
 
-    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public ScrollPaneControl<TModel, TChildComponentTemplate> setItems(List<TModel> items) {
         this.items = items == null ? new ArrayList<TModel>(0) : items;
         final int maximumValue = Math.max(0, (this.items.size() - visibleItemCount) * template.getBounds().getHeight());
@@ -118,7 +117,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         if (items.size() != lastItemsListCount) {
             lastItemsListCount = items.size();
             scrollbar.setEnabled(usableScrollingHeight > 0);
-            final int maximumValue = Math.max(0, (this.items.size() - visibleItemCount) * template.getBounds().getHeight());
+            final int maximumValue = Math.max(0, (items.size() - visibleItemCount) * template.getBounds().getHeight());
             scrollbar.setMaximumValue(maximumValue);
             scrollbar.setCurrentValue(0);
         }
@@ -127,7 +126,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
                 0, 0,
                 templateBounds.getWidth(), viewportHeight);
 
-        guiRenderer.startViewport(this, viewport);
+        getGuiRenderer().startViewport(this, viewport);
 
         if (usableScrollingHeight > 0)
         {
@@ -146,15 +145,17 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
             }
 
             //This is unchecked, but the generic constraints ensure this cast is possible.
-            //noinspection unchecked,CastToIncompatibleInterface
-            ((IModelView<TModel>)itemRenderer).setModel(model);
+            if (itemRenderer instanceof IModelView)
+            {
+                ((IModelView<TModel>) itemRenderer).setModel(model);
+            }
 
             itemRenderer.setLocation(0, templateBounds.getHeight() * i - itemOffset);
         }
 
         super.draw();
 
-        guiRenderer.endViewport();
+        getGuiRenderer().endViewport();
     }
 
     public class ScrollbarChangedEventListener implements ICurrentValueChangedEventListener

@@ -8,7 +8,7 @@ import java.util.List;
 public class ControlBase
 {
     private final Rectangle componentBounds = new Rectangle();
-    protected final GuiRenderer guiRenderer;
+    private final GuiRenderer guiRenderer;
     private ControlBase parent = null;
     private final List<ControlBase> children = new ArrayList<ControlBase>(10);
 
@@ -224,6 +224,11 @@ public class ControlBase
             handled = callback.checkCurrent(point);
         }
         return handled;
+    }
+
+    public GuiRenderer getGuiRenderer()
+    {
+        return guiRenderer;
     }
 
     private interface IMouseCallback {

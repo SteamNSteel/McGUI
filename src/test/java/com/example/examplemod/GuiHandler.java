@@ -19,7 +19,6 @@ package com.example.examplemod;
 import com.example.examplemod.ProjectTableExample.ProjectTableContainer;
 import com.example.examplemod.ProjectTableExample.ProjectTableGui;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 

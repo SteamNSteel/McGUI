@@ -1,8 +1,5 @@
 package mod.steamnsteel.mcgui.client.gui.controls;
 
-/**
- * Created by codew on 18/01/2016.
- */
 @SuppressWarnings("unused")
 public class McGUIException extends RuntimeException
 {

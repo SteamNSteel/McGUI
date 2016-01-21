@@ -25,7 +25,7 @@ public class ScrollbarControl extends ControlBase
         super(guiRenderer);
         this.activeHandle = activeHandle;
         this.inactiveHandle = inactiveHandle;
-        this.currentTexture = inactiveHandle;
+        currentTexture = inactiveHandle;
 
         onResized(getBounds());
     }
@@ -36,7 +36,7 @@ public class ScrollbarControl extends ControlBase
         if (!enabled) {
             return;
         }
-        guiRenderer.drawComponentTextureWithOffset(this, currentTexture, 0, getHandleTop());
+        getGuiRenderer().drawComponentTextureWithOffset(this, currentTexture, 0, getHandleTop());
     }
 
     public int getMinimumValue()
@@ -102,7 +102,7 @@ public class ScrollbarControl extends ControlBase
         if (newY < 0) newY = 0;
         if (newY > usableScrollHeight) newY = usableScrollHeight;
 
-        double percentage=(newY / (double)usableScrollHeight);
+        double percentage= newY / (double)usableScrollHeight;
 
         int discreteValues = maximumValue - minimumValue;
 
@@ -149,7 +149,7 @@ public class ScrollbarControl extends ControlBase
 
     public void setCurrentValue(int newValue)
     {
-        int previousValue = this.currentValue;
+        int previousValue = currentValue;
 
         if (newValue < minimumValue){
             newValue = minimumValue;
@@ -160,7 +160,7 @@ public class ScrollbarControl extends ControlBase
 
 
         if (previousValue != newValue) {
-            this.currentValue = newValue;
+            currentValue = newValue;
             fireOnCurrentValueChangedEvent(previousValue, newValue);
         }
 
@@ -187,13 +187,13 @@ public class ScrollbarControl extends ControlBase
         {
             try {
                 currentValueChangedEventListener.invoke(this, previousValue, newValue);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
             }
         }
     }
 
-    List<ICurrentValueChangedEventListener> currentValueChangedEventListeners = new ArrayList<ICurrentValueChangedEventListener>();
+    private final List<ICurrentValueChangedEventListener> currentValueChangedEventListeners = new ArrayList<ICurrentValueChangedEventListener>(1);
 
     public void addOnCurrentValueChangedEventListener(ICurrentValueChangedEventListener listener) {
         currentValueChangedEventListeners.add(listener);
@@ -203,8 +203,7 @@ public class ScrollbarControl extends ControlBase
     }
 
     private int getHandleTop() {
-        double percentageLocation = (currentValue - minimumValue) / (double)(maximumValue - minimumValue);
-        final int i = (int) (percentageLocation * usableScrollHeight);
-        return i;
+        final double percentageLocation = (currentValue - minimumValue) / (double)(maximumValue - minimumValue);
+        return (int) (percentageLocation * usableScrollHeight);
     }
 }

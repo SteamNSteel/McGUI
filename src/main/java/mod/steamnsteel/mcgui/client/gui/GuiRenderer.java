@@ -128,7 +128,7 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     // Viewport Management
     /////////////////////////////////////////////////////////////////////////////
-    public Stack<Rectangle> viewportStack = new Stack<Rectangle>();
+    private Stack<Rectangle> viewportStack = new Stack<Rectangle>();
 
     public void startViewport(ControlBase control, Rectangle bounds) {
         final ReadablePoint controlLocation = getControlLocation(control);

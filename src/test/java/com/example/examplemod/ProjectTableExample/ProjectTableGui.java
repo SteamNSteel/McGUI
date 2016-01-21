@@ -23,8 +23,7 @@ import java.util.List;
 
 public class ProjectTableGui extends McGUI
 {
-    private final GuiTexture TEXTURE = new GuiTexture(getResourceLocation("SSCraftingTableGUI"), 273, 273);
-    private final InventoryPlayer playerInventory;
+    private final GuiTexture parentTexture = new GuiTexture(getResourceLocation("SSCraftingTableGUI"), 273, 273);
     private GuiTextField searchField = null;
     private List<ProjectTableRecipe> recipeList = null;
     private ArrayList<ProjectTableRecipe> filteredList = null;
@@ -34,7 +33,6 @@ public class ProjectTableGui extends McGUI
 
     public ProjectTableGui(InventoryPlayer playerInventory) {
         super(new ProjectTableContainer(playerInventory));
-        this.playerInventory = playerInventory;
     }
 
     @Override
@@ -79,11 +77,11 @@ public class ProjectTableGui extends McGUI
     {
         guiRenderer = new GuiRenderer(mc, mc.getTextureManager(), fontRendererObj, itemRender);
 
-        final GuiSubTexture guiBackground = new GuiSubTexture(TEXTURE, new Rectangle(0, 0, 176, 227));
-        final GuiTexture inactiveHandle = new GuiSubTexture(TEXTURE, new Rectangle(176, 0, 12, 15));
-        final GuiTexture activeHandle = new GuiSubTexture(TEXTURE, new Rectangle(176 + 12, 0, 12, 15));
-        final GuiTexture craftableSubtexture = new GuiSubTexture(TEXTURE, new Rectangle(0, 227, 142, 23));
-        final GuiTexture uncraftableSubtexture = new GuiSubTexture(TEXTURE, new Rectangle(0, 227 + 23, 142, 23));
+        final GuiSubTexture guiBackground = new GuiSubTexture(parentTexture, new Rectangle(0, 0, 176, 227));
+        final GuiTexture inactiveHandle = new GuiSubTexture(parentTexture, new Rectangle(176, 0, 12, 15));
+        final GuiTexture activeHandle = new GuiSubTexture(parentTexture, new Rectangle(176 + 12, 0, 12, 15));
+        final GuiTexture craftableSubtexture = new GuiSubTexture(parentTexture, new Rectangle(0, 227, 142, 23));
+        final GuiTexture uncraftableSubtexture = new GuiSubTexture(parentTexture, new Rectangle(0, 227 + 23, 142, 23));
 
         setRootControl(new TexturedPaneControl(guiRenderer, 176, 227, guiBackground));
         scrollbarGuiComponent = new ScrollbarControl(guiRenderer, activeHandle, inactiveHandle);
@@ -136,6 +134,7 @@ public class ProjectTableGui extends McGUI
         guiRenderer.notifyTextureChanged();
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (!checkHotbarKeys(keyCode))
         {
@@ -167,7 +166,7 @@ public class ProjectTableGui extends McGUI
         }
     }
 
-    List<ItemStack> usableItems;
+    private List<ItemStack> usableItems;
 
     private void processPlayerInventory() {
         List<ItemStack> usableItems = Lists.newArrayList();
@@ -211,6 +210,7 @@ public class ProjectTableGui extends McGUI
     private static final String LOCATION = "textures/gui/";
     private static final String FILE_EXTENSION = ".png";
 
+    @Override
     protected ResourceLocation getResourceLocation(String path)
     {
         return getResourceLocation(ExampleMod.MODID.toLowerCase(), LOCATION + path + FILE_EXTENSION);

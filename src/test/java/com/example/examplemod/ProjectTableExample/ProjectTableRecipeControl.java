@@ -43,20 +43,20 @@ public class ProjectTableRecipeControl extends ButtonControl implements IGuiTemp
         if (output.size() == 1 && outputItemStack.getItem() != null)
         {
             RenderHelper.enableGUIStandardItemLighting();
-            guiRenderer.renderItem(this, outputItemStack, 2, 3);
+            getGuiRenderer().renderItem(this, outputItemStack, 2, 3);
             RenderHelper.disableStandardItemLighting();
 
             if (outputItemStack.stackSize > 1)
             {
                 final String craftedItemCount = String.format("%d", outputItemStack.stackSize);
-                final int textWidth = guiRenderer.getStringWidth(craftedItemCount);
+                final int textWidth = getGuiRenderer().getStringWidth(craftedItemCount);
 
                 GlStateManager.depthFunc(GL11.GL_ALWAYS);
-                guiRenderer.drawStringWithShadow(this, craftedItemCount, 16 - textWidth + 2, 12, 16777215);
+                getGuiRenderer().drawStringWithShadow(this, craftedItemCount, 16 - textWidth + 2, 12, 16777215);
                 GlStateManager.depthFunc(GL11.GL_LEQUAL);
 
             }
-            guiRenderer.drawStringWithShadow(this, recipe.getDisplayName(), 2 + 20, 8, 16777215);
+            getGuiRenderer().drawStringWithShadow(this, recipe.getDisplayName(), 2 + 20, 8, 16777215);
         }
 
         final int inputItemCount = recipe.getConsolidatedInput().size();
@@ -65,16 +65,16 @@ public class ProjectTableRecipeControl extends ButtonControl implements IGuiTemp
             final ItemStack inputItemStack = recipe.getConsolidatedInput().get(j);
 
             final String requiredItemCount = String.format("%d", inputItemStack.stackSize);
-            final int textWidth = guiRenderer.getStringWidth(requiredItemCount);
+            final int textWidth = getGuiRenderer().getStringWidth(requiredItemCount);
 
             final int border = 1;
             final int padding = 2;
             final int itemSize = 16;
 
-            guiRenderer.renderItem(this, inputItemStack, getBounds().getWidth() - border - (itemSize + padding) * (j + border), padding + border);
+            getGuiRenderer().renderItem(this, inputItemStack, getBounds().getWidth() - border - (itemSize + padding) * (j + border), padding + border);
 
             GlStateManager.depthFunc(GL11.GL_ALWAYS);
-            guiRenderer.drawStringWithShadow(this, requiredItemCount, getBounds().getWidth() - border - (itemSize + padding) * j - textWidth - border , 12, 16777215);
+            getGuiRenderer().drawStringWithShadow(this, requiredItemCount, getBounds().getWidth() - border - (itemSize + padding) * j - textWidth - border , 12, 16777215);
             GlStateManager.depthFunc(GL11.GL_LEQUAL);
         }
 
@@ -95,7 +95,7 @@ public class ProjectTableRecipeControl extends ButtonControl implements IGuiTemp
     @Override
     public ProjectTableRecipeControl construct()
     {
-        final ProjectTableRecipeControl concreteControl = new ProjectTableRecipeControl(guiRenderer, craftableTexture, uncraftableTexture);
+        final ProjectTableRecipeControl concreteControl = new ProjectTableRecipeControl(getGuiRenderer(), craftableTexture, uncraftableTexture);
 
         concreteControl.recipeCraftingEventListeners = recipeCraftingEventListeners;
 

@@ -8,9 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Created by codew on 5/01/2016.
- */
 public class ProjectTableContainer extends Container {
 
     /** The crafting matrix inventory (3x3). */
@@ -31,21 +28,17 @@ public class ProjectTableContainer extends Container {
         return true;
     }
 
-    class ProjectTableCraftingSlot extends SlotCrafting
+    private static class ProjectTableCraftingSlot extends SlotCrafting
     {
-        private final EntityPlayer player;
-        private final InventoryCrafting craftMatrix;
 
         public ProjectTableCraftingSlot(EntityPlayer player, InventoryCrafting craftingMaterials, IInventory craftingOutput, int slotIndex)
         {
             super(player, craftingMaterials, craftingOutput, slotIndex, 0, 0);
-            this.player = player;
-            craftMatrix = craftingMaterials;
         }
 
+        @Override
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
         {
-            //FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, ProjectTableContainer.this.craftMatrix);
             onCrafting(stack);
         }
     }
@@ -109,7 +102,7 @@ public class ProjectTableContainer extends Container {
             int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
             while (itemStack.stackSize > 0 && isSlotInRange(currentSlotIndex, slotMin, slotMax, ascending))
             {
-                final Slot slot = (Slot) inventorySlots.get(currentSlotIndex);
+                final Slot slot = inventorySlots.get(currentSlotIndex);
                 final ItemStack stackInSlot = slot.getStack();
 
                 if (slot.isItemValid(itemStack) && equalsIgnoreStackSize(itemStack, stackInSlot))
@@ -142,7 +135,7 @@ public class ProjectTableContainer extends Container {
 
             while (isSlotInRange(currentSlotIndex, slotMin, slotMax, ascending))
             {
-                final Slot slot = (Slot) inventorySlots.get(currentSlotIndex);
+                final Slot slot = inventorySlots.get(currentSlotIndex);
                 final ItemStack stackInSlot = slot.getStack();
 
                 if (slot.isItemValid(itemStack) && stackInSlot == null)

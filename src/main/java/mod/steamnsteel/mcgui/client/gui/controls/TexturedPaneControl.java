@@ -5,9 +5,6 @@ import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
 import mod.steamnsteel.mcgui.client.gui.GuiTexture;
 import org.lwjgl.util.Rectangle;
 
-/**
- * Created by codew on 7/01/2016.
- */
 public class TexturedPaneControl extends ControlBase
 {
     private final GuiTexture texture;
@@ -27,7 +24,7 @@ public class TexturedPaneControl extends ControlBase
     @Override
     public void draw()
     {
-        guiRenderer.drawComponentTexture(this, texture);
+        getGuiRenderer().drawComponentTexture(this, texture);
         super.draw();
     }
 }
