@@ -1,7 +1,7 @@
 package mod.steamnsteel.mcgui.client.gui.controls;
 
 import com.google.common.collect.Lists;
-import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.ControlBase;
 import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
 import mod.steamnsteel.mcgui.client.gui.IGuiTemplate;
 import mod.steamnsteel.mcgui.client.gui.IModelView;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("TypeParameterNamingConvention")
-public class ScrollPaneControl<TModel, TChildComponentTemplate extends Control & IGuiTemplate<TChildComponentTemplate> & IModelView<TModel>> extends Control
+public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBase & IGuiTemplate<TChildComponentTemplate> & IModelView<TModel>> extends ControlBase
 {
-    private Control[] itemRenderers = new Control[0];
+    private ControlBase[] itemRenderers = new ControlBase[0];
     private int lastItemsListCount = 0;
     private List<TModel> items = Lists.newArrayList();
     private TChildComponentTemplate template = null;
@@ -43,7 +43,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends Control &
         }
         visibleItemCount = visibleItems;
         final int actualItems = visibleItemCount + 1;
-        itemRenderers = new Control[actualItems];
+        itemRenderers = new ControlBase[actualItems];
         for (int i = 0; i < actualItems; ++i) {
             itemRenderers[i] = template.construct();
             addChild(itemRenderers[i]);
@@ -114,7 +114,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends Control &
         final int itemOffset = scrollbarOffset % templateBounds.getHeight();
         for (int i = 0; i < itemRenderers.length; ++i)
         {
-            final Control itemRenderer = itemRenderers[i];
+            final ControlBase itemRenderer = itemRenderers[i];
             TModel model = null;
             if (itemIndex + i < items.size()) {
                 model = items.get(itemIndex + i);
@@ -136,7 +136,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends Control &
     {
 
         @Override
-        public void invoke(Control scrollbarControl, int previousValue, int newValue)
+        public void invoke(ControlBase scrollbarControl, int previousValue, int newValue)
         {
             scrollbarOffset = newValue;
         }

@@ -6,20 +6,20 @@ import java.util.HashSet;
  * Created by codew on 12/01/2016.
  */
 public class MouseCapture {
-    private static HashSet<Control> capturingControls = new HashSet<Control>();
-    public static void register(Control control) {
+    private static HashSet<ControlBase> capturingControls = new HashSet<ControlBase>();
+    public static void register(ControlBase control) {
         capturingControls.add(control);
     }
 
-    public static void unregister(Control control) {
+    public static void unregister(ControlBase control) {
         capturingControls.remove(control);
     }
 
-    public static Iterable<Control> getCapturedControls() {
+    public static Iterable<ControlBase> getCapturedControls() {
         return capturingControls;
     }
 
-    public static boolean isCapturing(Control control) {
+    public static boolean isCapturing(ControlBase control) {
         return capturingControls.contains(control);
     }
 }

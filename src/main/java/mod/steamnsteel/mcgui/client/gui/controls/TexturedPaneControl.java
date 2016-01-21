@@ -1,6 +1,6 @@
 package mod.steamnsteel.mcgui.client.gui.controls;
 
-import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.ControlBase;
 import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
 import mod.steamnsteel.mcgui.client.gui.GuiTexture;
 import org.lwjgl.util.Rectangle;
@@ -8,7 +8,7 @@ import org.lwjgl.util.Rectangle;
 /**
  * Created by codew on 7/01/2016.
  */
-public class TexturedPaneControl extends Control
+public class TexturedPaneControl extends ControlBase
 {
     private final GuiTexture texture;
 

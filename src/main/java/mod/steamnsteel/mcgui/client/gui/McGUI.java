@@ -35,7 +35,7 @@ public abstract class McGUI extends GuiContainer
     private static final String FILE_EXTENSION = ".png";
     private static final String INVENTORY = "container.inventory";
     private String modId = "";
-    private Control rootControl = null;
+    private ControlBase rootControl = null;
 
     public McGUI(Container container)
     {
@@ -46,11 +46,11 @@ public abstract class McGUI extends GuiContainer
 
     protected abstract String getInventoryName();
 
-    public final void setRootControl(Control rootControl) {
+    public final void setRootControl(ControlBase rootControl) {
         this.rootControl = rootControl;
     }
 
-    protected final void addChild(Control childControl) {
+    protected final void addChild(ControlBase childControl) {
         this.rootControl.addChild(childControl);
     }
 
@@ -84,6 +84,8 @@ public abstract class McGUI extends GuiContainer
             return;
         }
 
+        System.out.println("DWheel: " + Mouse.getEventDWheel());
+
         int eventX = Mouse.getEventX() * this.width / this.mc.displayWidth;
         int eventY = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
         int eventButton = Mouse.getEventButton();
@@ -116,14 +118,14 @@ public abstract class McGUI extends GuiContainer
 
             this.eventButton = -1;
             rootControl.mouseReleased(currentMouseLocation, eventButton);
-            for (final Control control : MouseCapture.getCapturedControls())
+            for (final ControlBase control : MouseCapture.getCapturedControls())
             {
                 control.mouseReleased(currentMouseLocation, eventButton);
             }
             if (isDragging && eventButton == dragButton) {
                 //Logger.info("Mouse Drag Ended %s", currentMouseLocation);
                 rootControl.mouseDragEnded(currentMouseLocation, eventButton);
-                for (final Control control : MouseCapture.getCapturedControls())
+                for (final ControlBase control : MouseCapture.getCapturedControls())
                 {
                     control.mouseDragEnded(currentMouseLocation, eventButton);
                 }
@@ -149,7 +151,7 @@ public abstract class McGUI extends GuiContainer
 
                     rootControl.mouseDragged(currentMouseLocation, delta, this.eventButton);
                     Point p = new Point();
-                    for (final Control control : MouseCapture.getCapturedControls())
+                    for (final ControlBase control : MouseCapture.getCapturedControls())
                     {
                         final ReadablePoint controlLocation = GuiRenderer.getControlLocation(control);
                         p.setLocation(currentMouseLocation);

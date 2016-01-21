@@ -1,6 +1,6 @@
 package mod.steamnsteel.mcgui.client.gui.controls;
 
-import mod.steamnsteel.mcgui.client.gui.Control;
+import mod.steamnsteel.mcgui.client.gui.ControlBase;
 import mod.steamnsteel.mcgui.client.gui.GuiLogger;
 import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
 import mod.steamnsteel.mcgui.client.gui.GuiTexture;
@@ -10,7 +10,7 @@ import org.lwjgl.util.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ButtonControl extends Control
+public class ButtonControl extends ControlBase
 {
     private GuiTexture defaultTexture;
     private GuiTexture pressedTexture;

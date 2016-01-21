@@ -7,7 +7,7 @@ import org.lwjgl.util.ReadableRectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScrollbarControl extends Control
+public class ScrollbarControl extends ControlBase
 {
     private final GuiTexture activeHandle;
     private final GuiTexture inactiveHandle;

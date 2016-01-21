@@ -5,24 +5,24 @@ import org.lwjgl.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Control
+public class ControlBase
 {
     private final Rectangle componentBounds = new Rectangle();
     protected final GuiRenderer guiRenderer;
-    private Control parent = null;
-    private final List<Control> children = new ArrayList<Control>(10);
+    private ControlBase parent = null;
+    private final List<ControlBase> children = new ArrayList<ControlBase>(10);
 
-    public Control(GuiRenderer guiRenderer) {
+    public ControlBase(GuiRenderer guiRenderer) {
         this(guiRenderer, new Rectangle());
     }
 
-    public Control(GuiRenderer guiRenderer, Rectangle componentBounds)
+    public ControlBase(GuiRenderer guiRenderer, Rectangle componentBounds)
     {
         this.guiRenderer = guiRenderer;
         this.componentBounds.setBounds(componentBounds);
         onResizeInternal();
     }
-    public Control(GuiRenderer guiRenderer, int width, int height) {
+    public ControlBase(GuiRenderer guiRenderer, int width, int height) {
         this(guiRenderer, new Rectangle(0, 0, width, height));
     }
 
@@ -46,7 +46,7 @@ public class Control
     }
 
     public void draw() {
-        for (final Control child : children)
+        for (final ControlBase child : children)
         {
             child.draw();
         }
@@ -56,21 +56,21 @@ public class Control
         return componentBounds;
     }
 
-    public void addChild(Control child) {
+    public void addChild(ControlBase child) {
         children.add(child);
         child.setParent(this);
     }
 
-    public void removeChild(Control child) {
+    public void removeChild(ControlBase child) {
         children.remove(child);
         child.setParent(null);
     }
 
-    public Control getParent() {
+    public ControlBase getParent() {
         return parent;
     }
 
-    public void setParent(Control parent)
+    public void setParent(ControlBase parent)
     {
         this.parent = parent;
     }
@@ -79,7 +79,7 @@ public class Control
     {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseClicked(localPoint, mouseButton);
             }
 
@@ -95,7 +95,7 @@ public class Control
     {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseReleased(localPoint, mouseButton);
             }
 
@@ -110,7 +110,7 @@ public class Control
     public boolean mouseMoved(final ReadablePoint point) {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseMoved(localPoint);
             }
 
@@ -125,7 +125,7 @@ public class Control
     public boolean mouseDragged(final ReadablePoint point, final ReadablePoint delta, final int buttons) {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseDragged(localPoint, delta, buttons);
             }
 
@@ -140,7 +140,7 @@ public class Control
     public boolean mouseDragStarted(final ReadablePoint point, final int buttons) {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseDragStarted(localPoint, buttons);
             }
 
@@ -155,7 +155,7 @@ public class Control
     public boolean mouseDragEnded(final ReadablePoint point, final int buttons) {
         IMouseCallback mouseCallback = new IMouseCallback() {
             @Override
-            public boolean checkChild(Control child, ReadablePoint localPoint) {
+            public boolean checkChild(ControlBase child, ReadablePoint localPoint) {
                 return child.mouseDragEnded(localPoint, buttons);
             }
 
@@ -174,7 +174,7 @@ public class Control
         //Logger.info("event triggered in %s @ %s - %s", this.getClass().getSimpleName(), this.getBounds(), point);
 
         boolean handled = false;
-        for (final Control child : children)
+        for (final ControlBase child : children)
         {
             realControlBounds.setSize(child.getBounds());
 
@@ -195,7 +195,7 @@ public class Control
     }
 
     private interface IMouseCallback {
-        boolean checkChild(Control child, ReadablePoint localPoint);
+        boolean checkChild(ControlBase child, ReadablePoint localPoint);
 
         boolean checkCurrent(ReadablePoint point);
     }

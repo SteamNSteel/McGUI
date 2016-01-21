@@ -69,12 +69,12 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     // Image rendering
     /////////////////////////////////////////////////////////////////////////////
-    public void drawModelRectWithCustomSizedTexture(Control control, GuiTexture texture)
+    public void drawModelRectWithCustomSizedTexture(ControlBase control, GuiTexture texture)
     {
         drawModelRectWithCustomSizedTexture(control, texture, 0, 0);
     }
 
-    public void drawModelRectWithCustomSizedTexture(Control control, GuiTexture texture, int offsetX, int offsetY)
+    public void drawModelRectWithCustomSizedTexture(ControlBase control, GuiTexture texture, int offsetX, int offsetY)
     {
         final ReadablePoint controlLocation = getControlLocation(control);
         verifyTexture(texture);
@@ -86,13 +86,13 @@ public class GuiRenderer
                 texture.getWidth(), texture.getHeight());
     }
 
-    public void drawComponentTexture(Control control, GuiTexture texture)
+    public void drawComponentTexture(ControlBase control, GuiTexture texture)
     {
         verifyTexture(texture);
         drawModelRectWithCustomSizedTexture(control, texture, 0, 0);
     }
 
-    public void drawComponentTextureWithOffset(Control control, GuiTexture texture, int offsetX, int offsetY)
+    public void drawComponentTextureWithOffset(ControlBase control, GuiTexture texture, int offsetX, int offsetY)
     {
         drawModelRectWithCustomSizedTexture(control, texture, offsetX, offsetY);
     }
@@ -100,7 +100,7 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     // Item Rendering
     /////////////////////////////////////////////////////////////////////////////
-    public void renderItem(Control control, ItemStack itemStack, int x, int y)
+    public void renderItem(ControlBase control, ItemStack itemStack, int x, int y)
     {
         final ReadablePoint controlLocation = getControlLocation(control);
         RenderHelper.enableGUIStandardItemLighting();
@@ -112,7 +112,7 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     // Text Rendering
     /////////////////////////////////////////////////////////////////////////////
-    public void drawStringWithShadow(Control control, String text, int x, int y, int colour)
+    public void drawStringWithShadow(ControlBase control, String text, int x, int y, int colour)
     {
         final ReadablePoint controlLocation = getControlLocation(control);
         fontRenderer.drawStringWithShadow(text, controlLocation.getX() + x, controlLocation.getY() + y, colour);
@@ -130,7 +130,7 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     public Stack<Rectangle> viewportStack = new Stack<Rectangle>();
 
-    public void startViewport(Control control, Rectangle bounds) {
+    public void startViewport(ControlBase control, Rectangle bounds) {
         final ReadablePoint controlLocation = getControlLocation(control);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         final ScaledResolution res = new ScaledResolution(client);
@@ -153,8 +153,8 @@ public class GuiRenderer
     /////////////////////////////////////////////////////////////////////////////
     // Utilities
     /////////////////////////////////////////////////////////////////////////////
-    public static ReadablePoint getControlLocation(Control control) {
-        Control parent = control;
+    public static ReadablePoint getControlLocation(ControlBase control) {
+        ControlBase parent = control;
         int offsetX = 0;
         int offsetY = 0;
         while (parent != null) {
