@@ -60,14 +60,6 @@ processResources
     }
 }
 
-task deobfJar(type: Jar, dependsOn: 'jar') {
-    from "build/classes/main"
-    classifier "deobf"
-}
-artifacts {
-    archives deobfJar
-}
-
 apply plugin: 'maven'
 
 task createPom << {
