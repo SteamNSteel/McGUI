@@ -38,7 +38,7 @@ minecraft {
 }
 
 jar {
-    classifier = 'API'
+    classifier = 'api'
 }
 
 processResources
