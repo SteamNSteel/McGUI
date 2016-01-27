@@ -1,10 +1,12 @@
 #Using McGUI
-McGUI is not provided as a dependency jar for use in a mod pack. It is distributed as a "deobfuscated" jar, designed with the idea that you will package the code together with your mod, using a technique called Shading. 
+McGUI is not provided as a dependency jar for use in a mod pack. It is distributed as a standalone jar, designed with the idea that you will package the code together with your mod, using a technique called Shading. 
 
 The benefit of shading the jar is that if anybody else is using a different version of McGUI, the changes in their version will not break your mod, at the expense that your jar may become a little larger.
 
 #Adding a dependency on McGUI
-You can quickly add a depdendency on McGUI using the following gradle snippet
+You can quickly add a depdendency on McGUI using the following gradle snippet.
+
+By using deobfCompile, McGUI will be decompiled to make use of whatever MCP mappings are currently in use in your environment, ensuring no issues with clashing obfuscated/deobfuscated code.
 
 ```
 dependencies {
@@ -13,7 +15,7 @@ dependencies {
             url 'http://repository.steamnsteel.info/artifactory/steamnsteel-libs-unstable'
         }
     }
-    compile(group: 'mod.steamnsteel', name: 'mcgui', version: '1.0', classifier: 'deobf')
+    deobfCompile(group: 'mod.steamnsteel', name: 'mcgui', version: '1.0', classifier: 'API')
 }
 ```
 
@@ -24,7 +26,7 @@ Start by looking for the buildscript { } section of your gradle file.
 
 You will make sure you have a repositories { } subsection that contains jcenter(). It may also contain other repositories like Forge and others.
 
-In the dependencies { } subsection, add a classpath to 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+In the dependencies { } subsection, add a classpath to 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
 
 It should look something like the following:
 
@@ -34,7 +36,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 ```
@@ -43,7 +45,7 @@ buildscript {
  
  ```
 ...
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 
@@ -76,7 +78,7 @@ Now, let's make the shading happen. I'll show you the section, and then I'll exp
 ```
 shadowJar {
     dependencies {
-        include(dependency('mod.steamnsteel:mcgui:1.0:deobf'))
+        include(dependency('deobf.snapshot.20160117.mod.steamnsteel:mcgui:1.0'))
     }
     relocate 'mod.steamnsteel.mcgui', 'mod.steamnsteel.shaded.mod.steamnsteel.mcgui'
     classifier = 'universal'
@@ -87,7 +89,7 @@ reobf.jar.task.dependsOn shadowJar
 
 The 'shadowJar' task is provided by the plugin, it is the task that will embed one jar within another, and optionally change all the package references to prevent colliding.
 
-Inside of the dependencies, you specify which artifacts you are going to shade. In this case, the deobfuscated McGUI. You may add other dependencies to shade here too.
+Inside of the dependencies, you specify which artifacts you are going to shade. By using deobfCompile when declaring your dependency, ForgeGradle will prefix your dependendency with "deobf.{mcp mappings identifier}.", and remove the "API" classifier from McGUI. This document will be updated once I find a better way to detect what the mappings identifier is.  You may add other dependencies to shade here too.
 
 Next, we've annouced that the classifier of the shadowJar will be the same as the unshaded jar, so that the reobfuscation task will work on the shaded jar.
 
@@ -97,13 +99,16 @@ You should be able to run your mod both inside your IDE and in production withou
 
 #Shading shortcut
 If you don't care about how Shading works, you can paste the following snippet at the bottom of your build.gradle to get McGUI shading for free.
+
+You may need to update deobf.snapshot.20160117 to whatever MCP mapping you are currently using.
+
 ```
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 
@@ -111,7 +116,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 shadowJar {
     dependencies {
-        include(dependency('mod.steamnsteel:mcgui:1.0:deobf'))
+        include(dependency('deobf.snapshot.20160117.mod.steamnsteel:mcgui:1.0'))
     }
     relocate 'mod.steamnsteel.mcgui', 'mod.steamnsteel.shaded.mod.steamnsteel.mcgui'
     classifier = 'universal'
