@@ -157,6 +157,8 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
             itemRenderer.setLocation(0, templateBounds.getHeight() * i - itemOffset);
         }
 
+        previousItemIndex = itemIndex;
+
         super.draw();
 
         getGuiRenderer().endViewport();
