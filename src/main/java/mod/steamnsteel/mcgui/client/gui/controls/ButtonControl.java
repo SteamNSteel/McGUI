@@ -18,6 +18,8 @@ public class ButtonControl extends ControlBase
     private GuiTexture disabledTexture;
     private GuiTexture currentTexture;
 
+    private boolean isDisabled = false;
+
     public ButtonControl(GuiRenderer guiRenderer)
     {
         super(guiRenderer);
@@ -37,7 +39,9 @@ public class ButtonControl extends ControlBase
     public void draw()
     {
         super.draw();
-        if (currentTexture != null)
+        if (isDisabled) {
+            getGuiRenderer().drawComponentTexture(this, disabledTexture);
+        } else if (currentTexture != null)
         {
             getGuiRenderer().drawComponentTexture(this, currentTexture);
         }
@@ -46,7 +50,7 @@ public class ButtonControl extends ControlBase
     @Override
     protected boolean onMouseRelease(ReadablePoint point, int mouseButton)
     {
-        if (mouseButton == 0)
+        if (!isDisabled && mouseButton == 0)
         {
             onButtonPressedInternal();
             currentTexture = defaultTexture;
@@ -58,7 +62,7 @@ public class ButtonControl extends ControlBase
     @Override
     protected boolean onMouseClick(ReadablePoint point, int mouseButton)
     {
-        if (mouseButton == 0)
+        if (!isDisabled && mouseButton == 0)
         {
             currentTexture = pressedTexture;
             return true;
@@ -144,5 +148,15 @@ public class ButtonControl extends ControlBase
     public void setDisabledTexture(GuiTexture disabledTexture)
     {
         this.disabledTexture = disabledTexture;
+    }
+
+    public boolean isDisabled()
+    {
+        return isDisabled;
+    }
+
+    public void setDisabled(boolean disabled)
+    {
+        isDisabled = disabled;
     }
 }
