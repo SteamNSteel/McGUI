@@ -2,7 +2,7 @@ package mod.steamnsteel.mcgui.client.gui.events;
 
 import mod.steamnsteel.mcgui.client.gui.ControlBase;
 
-public interface ICurrentValueChangedEventListener
+public interface ICurrentValueChangedEventListener<TValue>
 {
-    void invoke(ControlBase scrollbarControl, int previousValue, int newValue);
+    void onCurrentValueChanged(ControlBase control, TValue previousValue, TValue newValue);
 }

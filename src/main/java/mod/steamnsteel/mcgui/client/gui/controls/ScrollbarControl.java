@@ -186,7 +186,7 @@ public class ScrollbarControl extends ControlBase
         for (final ICurrentValueChangedEventListener currentValueChangedEventListener : currentValueChangedEventListeners)
         {
             try {
-                currentValueChangedEventListener.invoke(this, previousValue, newValue);
+                currentValueChangedEventListener.onCurrentValueChanged(this, previousValue, newValue);
             } catch (RuntimeException e) {
                 GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
             }

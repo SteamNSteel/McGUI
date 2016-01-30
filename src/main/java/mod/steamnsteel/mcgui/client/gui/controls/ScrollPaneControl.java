@@ -1,11 +1,10 @@
 package mod.steamnsteel.mcgui.client.gui.controls;
 
 import com.google.common.collect.Lists;
-import mod.steamnsteel.mcgui.client.gui.ControlBase;
-import mod.steamnsteel.mcgui.client.gui.GuiRenderer;
-import mod.steamnsteel.mcgui.client.gui.IGuiTemplate;
-import mod.steamnsteel.mcgui.client.gui.IModelView;
+import mod.steamnsteel.mcgui.client.gui.*;
+import mod.steamnsteel.mcgui.client.gui.events.IButtonPressedEventListener;
 import mod.steamnsteel.mcgui.client.gui.events.ICurrentValueChangedEventListener;
+import mod.steamnsteel.mcgui.client.gui.events.IItemMadeVisibleEventListener;
 import org.lwjgl.util.ReadablePoint;
 import org.lwjgl.util.ReadableRectangle;
 import org.lwjgl.util.Rectangle;
@@ -23,6 +22,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
     private final ScrollbarChangedEventListener scrollbarListener = new ScrollbarChangedEventListener();
     private int scrollbarOffset;
     private int visibleItemCount;
+    private int previousItemIndex = Integer.MIN_VALUE;
 
     public ScrollPaneControl(GuiRenderer guiRenderer, Rectangle componentBounds)
     {
@@ -103,16 +103,13 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
             return;
         }
 
-
         final ReadableRectangle templateBounds = template.getBounds();
 
         final int itemHeight = templateBounds.getHeight() * items.size();
         final int viewportHeight = templateBounds.getHeight() * 5;
 
-
         double scrollbarProgress = 0;
         final int usableScrollingHeight = itemHeight - templateBounds.getHeight() * visibleItemCount;
-
 
         if (items.size() != lastItemsListCount) {
             lastItemsListCount = items.size();
@@ -139,15 +136,22 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         for (int i = 0; i < itemRenderers.length; ++i)
         {
             final ControlBase itemRenderer = itemRenderers[i];
-            TModel model = null;
-            if (itemIndex + i < items.size()) {
-                model = items.get(itemIndex + i);
-            }
-
-            //This is unchecked, but the generic constraints ensure this cast is possible.
-            if (itemRenderer instanceof IModelView)
+            if (itemIndex != previousItemIndex)
             {
-                ((IModelView<TModel>) itemRenderer).setModel(model);
+                TModel model = null;
+                if (itemIndex + i < items.size())
+                {
+                    model = items.get(itemIndex + i);
+                }
+
+                //This is unchecked, but the generic constraints ensure this cast is possible.
+                if (itemRenderer instanceof IModelView)
+                {
+                    //noinspection unchecked
+                    ((IModelView<TModel>) itemRenderer).setModel(model);
+                }
+
+                onItemMadeVisibleInternal(itemRenderer, model);
             }
 
             itemRenderer.setLocation(0, templateBounds.getHeight() * i - itemOffset);
@@ -158,13 +162,49 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         getGuiRenderer().endViewport();
     }
 
-    public class ScrollbarChangedEventListener implements ICurrentValueChangedEventListener
+    public class ScrollbarChangedEventListener implements ICurrentValueChangedEventListener<Integer>
     {
-
         @Override
-        public void invoke(ControlBase scrollbarControl, int previousValue, int newValue)
+        public void onCurrentValueChanged(ControlBase control, Integer previousValue, Integer newValue)
         {
             scrollbarOffset = newValue;
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+    // Item Visible
+    /////////////////////////////////////////////////////////////////////////////
+
+    private void onItemMadeVisibleInternal(ControlBase itemRenderer, TModel model) {
+        onItemMadeVisible(itemRenderer, model);
+
+        fireItemMadeVisible(itemRenderer, model);
+    }
+
+    protected void onItemMadeVisible(ControlBase itemRenderer, TModel model) {
+    }
+
+    private void fireItemMadeVisible(ControlBase itemRenderer, TModel model)
+    {
+        for (final IItemMadeVisibleEventListener currentValueChangedEventListener : itemMadeVisibleEventListeners)
+        {
+            try {
+                //noinspection unchecked
+                currentValueChangedEventListener.onItemMadeVisible(this, itemRenderer, model);
+            } catch (RuntimeException e) {
+                GuiLogger.warning("Exception in an ICurrentValueChangedEventListener %s", e);
+            }
+        }
+    }
+
+    private final List<IItemMadeVisibleEventListener> itemMadeVisibleEventListeners = Lists.newArrayList();
+
+    @SuppressWarnings("unused")
+    public void addOnButtonPressedEventListener(IItemMadeVisibleEventListener listener) {
+        itemMadeVisibleEventListeners.add(listener);
+    }
+    @SuppressWarnings("unused")
+    public void removeOnButtonPressedEventListener(IItemMadeVisibleEventListener listener) {
+        itemMadeVisibleEventListeners.remove(listener);
     }
 }
