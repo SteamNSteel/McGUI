@@ -202,11 +202,11 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
     private final List<IItemMadeVisibleEventListener> itemMadeVisibleEventListeners = Lists.newArrayList();
 
     @SuppressWarnings("unused")
-    public void addOnButtonPressedEventListener(IItemMadeVisibleEventListener listener) {
+    public void addOnFireItemMadeEventListener(IItemMadeVisibleEventListener listener) {
         itemMadeVisibleEventListeners.add(listener);
     }
     @SuppressWarnings("unused")
-    public void removeOnButtonPressedEventListener(IItemMadeVisibleEventListener listener) {
+    public void removeOnFireItemMadeEventListener(IItemMadeVisibleEventListener listener) {
         itemMadeVisibleEventListeners.remove(listener);
     }
 }
