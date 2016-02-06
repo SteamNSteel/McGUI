@@ -77,8 +77,9 @@ Now, let's make the shading happen. I'll show you the section, and then I'll exp
 
 ```
 shadowJar {
+    def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
     dependencies {
-        include(dependency('deobf.snapshot.20160117.mod.steamnsteel:mcgui:1.0'))
+        include(dependency(deobfPrefix + 'mod.steamnsteel:mcgui:1.0'))
     }
     relocate 'mod.steamnsteel.mcgui', 'mod.steamnsteel.shaded.mod.steamnsteel.mcgui'
     classifier = 'universal'
@@ -115,8 +116,9 @@ buildscript {
 apply plugin: 'com.github.johnrengelman.shadow'
 
 shadowJar {
+    def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
     dependencies {
-        include(dependency('deobf.snapshot.20160117.mod.steamnsteel:mcgui:1.0'))
+        include(dependency(deobfPrefix + 'mod.steamnsteel:mcgui:1.0'))
     }
     relocate 'mod.steamnsteel.mcgui', 'mod.steamnsteel.shaded.mod.steamnsteel.mcgui'
     classifier = 'universal'
