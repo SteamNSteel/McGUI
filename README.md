@@ -15,7 +15,7 @@ dependencies {
             url 'http://repository.steamnsteel.info/artifactory/steamnsteel-libs-unstable'
         }
     }
-    deobfCompile(group: 'mod.steamnsteel', name: 'mcgui', version: '1.0', classifier: 'API')
+    deobfCompile(group: 'mod.steamnsteel', name: 'mcgui', version: '1.0', classifier: 'api')
 }
 ```
 
@@ -112,6 +112,15 @@ buildscript {
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    repositories {
+        maven {
+            url 'http://repository.steamnsteel.info/artifactory/steamnsteel-libs-unstable'
+        }
+    }
+    deobfCompile(group: 'mod.steamnsteel', name: 'mcgui', version: '1.0', classifier: 'api')
+}
 
 shadowJar {
     def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
