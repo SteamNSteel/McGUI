@@ -41,9 +41,9 @@ buildscript {
 }
 ```
  
- After this, section, you can apply the plugin 'com.github.johnrengelman.shadow'
+After this, section, you can apply the plugin 'com.github.johnrengelman.shadow'
  
- ```
+```
 ...
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
@@ -101,8 +101,6 @@ You should be able to run your mod both inside your IDE and in production withou
 #Shading shortcut
 If you don't care about how Shading works, you can paste the following snippet at the bottom of your build.gradle to get McGUI shading for free.
 
-You may need to update deobf.snapshot.20160117 to whatever MCP mapping you are currently using.
-
 ```
 buildscript {
     repositories {
@@ -126,4 +124,3 @@ shadowJar {
 
 reobf.jar.task.dependsOn shadowJar
 ```
-
