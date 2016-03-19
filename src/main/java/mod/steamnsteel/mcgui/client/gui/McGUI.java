@@ -20,7 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.Point;
 import org.lwjgl.util.ReadablePoint;
@@ -175,8 +175,8 @@ public abstract class McGUI extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseZ)
     {
-        final String name = StatCollector.translateToLocal(getInventoryName());
+        final String name = I18n.translateToLocal(getInventoryName());
         fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, TEXT_COLOR);
-        fontRendererObj.drawString(StatCollector.translateToLocal(INVENTORY), 8, ySize - 96 + 2, TEXT_COLOR);
+        fontRendererObj.drawString(I18n.translateToLocal(INVENTORY), 8, ySize - 96 + 2, TEXT_COLOR);
     }
 }
