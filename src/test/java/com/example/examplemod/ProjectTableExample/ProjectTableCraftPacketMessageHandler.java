@@ -58,7 +58,7 @@ public class ProjectTableCraftPacketMessageHandler implements IMessageHandler<Pr
                     ItemStack copy = itemStack.copy();
 
                     if (!playerInventory.addItemStackToInventory(copy)) {
-                        ctx.getServerHandler().playerEntity.dropPlayerItemWithRandomChoice(copy, true);
+                        ctx.getServerHandler().playerEntity.dropItem(copy, true);
                     } else {
                         playerInventory.markDirty();
                     }

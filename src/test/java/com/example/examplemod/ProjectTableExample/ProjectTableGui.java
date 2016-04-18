@@ -49,13 +49,13 @@ public class ProjectTableGui extends McGUI
 
         //Temporary Item List:
         recipeList = Lists.newArrayList(
-                new ProjectTableRecipe(new ItemStack(Blocks.iron_block, 1), new ItemStack(Blocks.iron_ore, 15)),
-                new ProjectTableRecipe(new ItemStack(Items.diamond, 10), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64)),
-                new ProjectTableRecipe(new ItemStack(Items.gold_nugget, 1), new ItemStack(Blocks.gold_block, 64), new ItemStack(Blocks.gold_ore, 64), new ItemStack(Blocks.beacon, 64), new ItemStack(Blocks.brown_mushroom_block, 64)),
-                new ProjectTableRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64)),
-                new ProjectTableRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64)),
-                new ProjectTableRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64)),
-                new ProjectTableRecipe(new ItemStack(Items.diamond, 1), new ItemStack(Blocks.dirt, 64), new ItemStack(Blocks.dirt, 64))
+                new ProjectTableRecipe(new ItemStack(Blocks.IRON_BLOCK, 1), new ItemStack(Blocks.IRON_ORE, 15)),
+                new ProjectTableRecipe(new ItemStack(Items.DIAMOND, 10), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64)),
+                new ProjectTableRecipe(new ItemStack(Items.GOLD_NUGGET, 1), new ItemStack(Blocks.GOLD_BLOCK, 64), new ItemStack(Blocks.GOLD_ORE, 64), new ItemStack(Blocks.BEACON, 64), new ItemStack(Blocks.BROWN_MUSHROOM_BLOCK, 64)),
+                new ProjectTableRecipe(new ItemStack(Items.DIAMOND, 1), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64)),
+                new ProjectTableRecipe(new ItemStack(Items.DIAMOND, 1), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64)),
+                new ProjectTableRecipe(new ItemStack(Items.DIAMOND, 1), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64)),
+                new ProjectTableRecipe(new ItemStack(Items.DIAMOND, 1), new ItemStack(Blocks.DIRT, 64), new ItemStack(Blocks.DIRT, 64))
         );
         filteredList = Lists.newArrayList(recipeList);
 
