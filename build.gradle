@@ -29,7 +29,7 @@ plugins {
 }
 */
 
-version = config.project_version + (hasProperty("CIRevision") ? "." + CIRevision : "")
+version = (hasProperty("CIRevision") ? CIRevision : config.project_version)
 group = config.group_name
 archivesBaseName = "${config.project_name}-${config.minecraft_version}"
 
