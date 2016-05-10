@@ -1,3 +1,12 @@
+// define the properties file
+ext.configFile = file "build.properties"
+configFile.withReader {
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
 // For those who want the bleeding edge
 buildscript {
     repositories {
@@ -20,21 +29,19 @@ plugins {
 }
 */
 
-version = "1.0"
-group= "mod.steamnsteel"
-archivesBaseName = "mcgui"
+version = config.project_version + (hasProperty("CIRevision") ? "." + CIRevision : "")
+group = config.group_name
+archivesBaseName = "${config.project_name}-${config.minecraft_version}"
 
 minecraft {
-    version = "1.9-12.16.0.1865-1.9"
+    version = config.minecraft_version + "-" + config.forge_version // grab latest forge
     runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not allways work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20160415"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    mappings = config.mcp_mappings
+    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    //replace '@MOD_VERSION@', version
+    //replace '@API_VERSION@', config.api_version
 }
 
 jar {
