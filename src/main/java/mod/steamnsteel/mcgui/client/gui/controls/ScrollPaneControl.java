@@ -110,13 +110,14 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
 
         double scrollbarProgress = 0;
         final int usableScrollingHeight = itemHeight - templateBounds.getHeight() * visibleItemCount;
-
+        boolean resetModels = false;
         if (items.size() != lastItemsListCount) {
             lastItemsListCount = items.size();
             scrollbar.setEnabled(usableScrollingHeight > 0);
             final int maximumValue = Math.max(0, (items.size() - visibleItemCount) * template.getBounds().getHeight());
             scrollbar.setMaximumValue(maximumValue);
             scrollbar.setCurrentValue(0);
+            resetModels = true;
         }
 
         final Rectangle viewport = new Rectangle(
@@ -136,7 +137,7 @@ public class ScrollPaneControl<TModel, TChildComponentTemplate extends ControlBa
         for (int i = 0; i < itemRenderers.length; ++i)
         {
             final ControlBase itemRenderer = itemRenderers[i];
-            if (itemIndex != previousItemIndex)
+            if (resetModels || itemIndex != previousItemIndex)
             {
                 TModel model = null;
                 if (itemIndex + i < items.size())
