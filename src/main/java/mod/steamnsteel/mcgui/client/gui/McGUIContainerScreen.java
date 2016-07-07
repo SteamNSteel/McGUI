@@ -23,21 +23,16 @@ import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.input.Mouse;
 import java.io.IOException;
 
-/**
- * @deprecated Use mod.steamnstee.mcgui.client.gui.McGUIContainerScreen instead.
- */
-@Deprecated()
-public abstract class McGUI extends GuiContainer
+public abstract class McGUIContainerScreen extends GuiContainer
 {
     private static final int TEXT_COLOR = 4210752;
-    public static final String LOCATION = "textures/gui/";
-    public static final String FILE_EXTENSION = ".png";
+
     private static final String INVENTORY = "container.inventory";
 
     private final McGUIMixin mixin;
     private ControlBase rootControl = null;
 
-    protected McGUI(Container container)
+    protected McGUIContainerScreen(Container container)
     {
 
         super(container);
