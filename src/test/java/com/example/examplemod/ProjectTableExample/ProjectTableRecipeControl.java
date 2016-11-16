@@ -46,9 +46,9 @@ public class ProjectTableRecipeControl extends ButtonControl implements IGuiTemp
             getGuiRenderer().renderItem(this, outputItemStack, 2, 3);
             RenderHelper.disableStandardItemLighting();
 
-            if (outputItemStack.stackSize > 1)
+            if (outputItemStack.func_190916_E() > 1)
             {
-                final String craftedItemCount = String.format("%d", outputItemStack.stackSize);
+                final String craftedItemCount = String.format("%d", outputItemStack.func_190916_E());
                 final int textWidth = getGuiRenderer().getStringWidth(craftedItemCount);
 
                 GlStateManager.depthFunc(GL11.GL_ALWAYS);
@@ -64,7 +64,7 @@ public class ProjectTableRecipeControl extends ButtonControl implements IGuiTemp
         for (int j = 0; j < inputItemCount; ++j) {
             final ItemStack inputItemStack = recipe.getConsolidatedInput().get(j);
 
-            final String requiredItemCount = String.format("%d", inputItemStack.stackSize);
+            final String requiredItemCount = String.format("%d", inputItemStack.func_190916_E());
             final int textWidth = getGuiRenderer().getStringWidth(requiredItemCount);
 
             final int border = 1;

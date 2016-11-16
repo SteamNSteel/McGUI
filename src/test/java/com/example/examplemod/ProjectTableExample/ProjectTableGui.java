@@ -182,7 +182,7 @@ public class ProjectTableGui extends McGUI
                 if (ItemStack.areItemStacksEqual(existingItemStack, itemStack))
                 {
                     itemMatched = true;
-                    existingItemStack.stackSize += itemStack.stackSize;
+                    existingItemStack.func_190917_f(itemStack.func_190916_E());
                 }
             }
             if (!itemMatched) {

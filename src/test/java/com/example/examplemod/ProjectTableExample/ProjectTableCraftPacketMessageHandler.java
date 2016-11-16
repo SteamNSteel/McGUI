@@ -28,7 +28,8 @@ public class ProjectTableCraftPacketMessageHandler implements IMessageHandler<Pr
             for (final ItemStack playerItem : compactedInventoryItems) {
                 if (recipeInput.getItem() == playerItem.getItem() && recipeInput.getMetadata() == playerItem.getMetadata() && ItemStack.areItemStackTagsEqual(recipeInput, playerItem)) {
                     itemMatched = true;
-                    if (recipeInput.stackSize > playerItem.stackSize) {
+                    //getStackSize()
+                    if (recipeInput.func_190916_E() > playerItem.func_190916_E()) {
                         canCraft = false;
                     }
                 }
@@ -41,7 +42,7 @@ public class ProjectTableCraftPacketMessageHandler implements IMessageHandler<Pr
             return null;
         }
 
-        IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
+        IThreadListener mainThread = (WorldServer) ctx.getServerHandler().playerEntity.world;
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
@@ -49,7 +50,7 @@ public class ProjectTableCraftPacketMessageHandler implements IMessageHandler<Pr
 
                 for (final ItemStack itemStack : recipe.getInput())
                 {
-                    playerInventory.clearMatchingItems(itemStack.getItem(), itemStack.getMetadata(), itemStack.stackSize, itemStack.getTagCompound());
+                    playerInventory.clearMatchingItems(itemStack.getItem(), itemStack.getMetadata(), itemStack.func_190916_E(), itemStack.getTagCompound());
                     playerInventory.markDirty();
                 }
 
@@ -82,7 +83,7 @@ public class ProjectTableCraftPacketMessageHandler implements IMessageHandler<Pr
                 if (existingItemStack.getItem() == itemStack.getItem() && existingItemStack.getMetadata() == itemStack.getMetadata() && ItemStack.areItemStackTagsEqual(existingItemStack, itemStack))
                 {
                     itemMatched = true;
-                    existingItemStack.stackSize += itemStack.stackSize;
+                    existingItemStack.func_190917_f(itemStack.func_190916_E());
                 }
             }
             if (!itemMatched) {

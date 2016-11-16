@@ -24,8 +24,8 @@ public enum KeyboardHandler
 
         if (keyBindings.isPressed()) {
             System.out.println("Key Input Event");
-            final EntityPlayerSP thePlayer = Minecraft.getMinecraft().thePlayer;
-            thePlayer.openGui(ExampleMod.instance, ModGuis.PROJECT_TABLE.getID(), thePlayer.worldObj, (int)thePlayer.posX, (int)thePlayer.posY, (int)thePlayer.posZ);
+            final EntityPlayerSP thePlayer = Minecraft.getMinecraft().player;
+            thePlayer.openGui(ExampleMod.instance, ModGuis.PROJECT_TABLE.getID(), thePlayer.world, (int)thePlayer.posX, (int)thePlayer.posY, (int)thePlayer.posZ);
         }
     }
 }

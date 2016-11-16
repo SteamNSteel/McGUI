@@ -137,7 +137,7 @@ public class ProjectTableRecipe
                 if (itemStack.getItem() == existingItemStack.getItem() && itemStack.getMetadata() == existingItemStack.getMetadata() && ItemStack.areItemStackTagsEqual(itemStack, existingItemStack))
                 {
                     itemMatched = true;
-                    existingItemStack.stackSize += itemStack.stackSize;
+                    existingItemStack.func_190917_f(itemStack.func_190916_E());
                 }
             }
             if (!itemMatched) {

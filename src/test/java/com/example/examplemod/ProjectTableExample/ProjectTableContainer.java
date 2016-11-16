@@ -37,9 +37,10 @@ public class ProjectTableContainer extends Container {
         }
 
         @Override
-        public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
+        public ItemStack func_190901_a(EntityPlayer playerIn, ItemStack stack)
         {
             onCrafting(stack);
+            return stack;
         }
     }
 
@@ -87,7 +88,7 @@ public class ProjectTableContainer extends Container {
     private static ItemStack cloneItemStack(ItemStack itemStack, int stackSize)
     {
         final ItemStack clonedItemStack = itemStack.copy();
-        clonedItemStack.stackSize = stackSize;
+        clonedItemStack.func_190920_e(stackSize);
         return clonedItemStack;
     }
 
@@ -100,26 +101,26 @@ public class ProjectTableContainer extends Container {
         if (itemStack.isStackable())
         {
             int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
-            while (itemStack.stackSize > 0 && isSlotInRange(currentSlotIndex, slotMin, slotMax, ascending))
+            while (itemStack.func_190916_E() > 0 && isSlotInRange(currentSlotIndex, slotMin, slotMax, ascending))
             {
                 final Slot slot = inventorySlots.get(currentSlotIndex);
                 final ItemStack stackInSlot = slot.getStack();
 
                 if (slot.isItemValid(itemStack) && equalsIgnoreStackSize(itemStack, stackInSlot))
                 {
-                    final int combinedStackSize = stackInSlot.stackSize + itemStack.stackSize;
+                    final int combinedStackSize = stackInSlot.func_190916_E() + itemStack.func_190916_E();
                     final int slotStackSizeLimit = Math.min(stackInSlot.getMaxStackSize(), slot.getSlotStackLimit());
 
                     if (combinedStackSize <= slotStackSizeLimit)
                     {
-                        itemStack.stackSize = 0;
-                        stackInSlot.stackSize = combinedStackSize;
+                        itemStack.func_190920_e(0);
+                        stackInSlot.func_190920_e(combinedStackSize);
                         slot.onSlotChanged();
                         slotFound = true;
-                    } else if (stackInSlot.stackSize < slotStackSizeLimit)
+                    } else if (stackInSlot.func_190916_E() < slotStackSizeLimit)
                     {
-                        itemStack.stackSize -= slotStackSizeLimit - stackInSlot.stackSize;
-                        stackInSlot.stackSize = slotStackSizeLimit;
+                        itemStack.func_190918_g(slotStackSizeLimit - stackInSlot.func_190916_E());
+                        stackInSlot.func_190920_e(slotStackSizeLimit);
                         slot.onSlotChanged();
                         slotFound = true;
                     }
@@ -129,7 +130,7 @@ public class ProjectTableContainer extends Container {
             }
         }
 
-        if (itemStack.stackSize > 0)
+        if (itemStack.func_190916_E() > 0)
         {
             int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
 
@@ -140,12 +141,12 @@ public class ProjectTableContainer extends Container {
 
                 if (slot.isItemValid(itemStack) && stackInSlot == null)
                 {
-                    slot.putStack(cloneItemStack(itemStack, Math.min(itemStack.stackSize, slot.getSlotStackLimit())));
+                    slot.putStack(cloneItemStack(itemStack, Math.min(itemStack.func_190916_E(), slot.getSlotStackLimit())));
                     slot.onSlotChanged();
 
                     if (slot.getStack() != null)
                     {
-                        itemStack.stackSize -= slot.getStack().stackSize;
+                        itemStack.func_190918_g(slot.getStack().func_190916_E());
                         return true;
                     }
                 }
