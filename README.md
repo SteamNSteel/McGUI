@@ -1,9 +1,11 @@
-#Using McGUI
+Using McGUI
+-----------
 McGUI is not provided as a dependency jar for use in a mod pack. It is distributed as a standalone jar, designed with the idea that you will package the code together with your mod, using a technique called Shading. 
 
 The benefit of shading the jar is that if anybody else is using a different version of McGUI, the changes in their version will not break your mod, at the expense that your jar may become a little larger.
 
-#Adding a dependency on McGUI
+Adding a dependency on McGUI
+-----------------------------
 You can quickly add a depdendency on McGUI using the following gradle snippet.
 
 By using deobfCompile, McGUI will be decompiled to make use of whatever MCP mappings are currently in use in your environment, ensuring no issues with clashing obfuscated/deobfuscated code.
@@ -21,7 +23,8 @@ dependencies {
 
 after updating your IDE, you should be able to start coding with McGUI.
 
-#Shading McGUI with Gradle
+Shading McGUI with Gradle
+-------------------------
 Start by looking for the buildscript { } section of your gradle file.
 
 You will make sure you have a repositories { } subsection that contains jcenter(). It may also contain other repositories like Forge and others.
@@ -98,7 +101,8 @@ Lastly, we tell ForgeGradle that it's reobfuscation task (reobf) depends on havi
 
 You should be able to run your mod both inside your IDE and in production without the McGUI jar being present.
 
-#Shading shortcut
+Shading shortcut
+----------------
 If you don't care about how Shading works, you can paste the following snippet at the bottom of your build.gradle to get McGUI shading for free.
 
 ```
